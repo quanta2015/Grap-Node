@@ -27,6 +27,6 @@ exports.format = function () {
 
 //等待函数
 exports.sleep = function (seconds) {
-    var startTime = new Date().getTime(); // get the current time
-    while (new Date().getTime() < startTime + seconds*1000); // hog cpu
+    var startTime = new Date().getTime();       // get the current time
+    while (new Date().getTime() < startTime + seconds*1000);    // hog cpu
 };

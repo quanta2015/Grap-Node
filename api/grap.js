@@ -14,7 +14,7 @@ function getJob() {
     }
     superAgent.get(url).set(opt).end(function(err, res) {
         if (err) {
-            console.log(err.status);
+            console.log(err.status)
 
             utils.sleep(60)
             if (index != config.amount) { //数据尚未抓完
@@ -32,35 +32,39 @@ function getJob() {
 
             jobList.each(function(index, item) {
                 //过滤标题行
-                if (index == 0) return true;
+                if (index == 0) return true
 
                 //过滤推荐列表的数据
-                if ($(this).attr("class") === 'show_recommend_tips') return false;
+                if ($(this).attr("class") === 'show_recommend_tips') return false
 
                 //取出数据列
-                posName = $(this).find("tr td").eq(0).find("a").text();
-                company = $(this).find("tr td").eq(2).find("a").text();
-                money = $(this).find("tr td").eq(3).text();
-                area = $(this).find("tr td").eq(4).text();
-                pubdate = $(this).find("tr td").eq(5).text();
+                comUrl = $(this).find("tr td").eq(0).find("a").attr('href')
+                posName = $(this).find("tr td").eq(0).find("a").text()
+                company = $(this).find("tr td").eq(2).find("a").text()
+                money = $(this).find("tr td").eq(3).text()
+                area = $(this).find("tr td").eq(4).text()
+                pubdate = $(this).find("tr td").eq(5).text()
+                exp = $(this).find("tr").eq(1).find(".newlist_deatil_two span").eq(3).text()
+                edu = $(this).find("tr").eq(1).find(".newlist_deatil_two span").eq(4).text()
+                desc = $(this).find("tr").eq(1).find(".newlist_deatil_last").text()
 
                 //保存到数据表
-                db.saveJobEx(posName, company, money, area, pubdate)
+                db.saveJobEx(posName, company, money, area, pubdate, exp, edu, desc, comUrl)
             }); //end of each shopList 
 
-            if (page < ps) {
-                page++;
-                url = utils.format(config.url.job_url, encodeURI(cList[index]), page);
-                // utils.sleep(1)
+            if (page < ps) {     //判断页面是否结束
+                page++
+                url = utils.format(config.url.job_url, encodeURI(cList[index]), page)
+                utils.sleep(1)
                 getJob()
-            } else if (index < config.amount) {
-                console.log(index + " " + cList[index] + " finished......");
+            } else if (index < config.amount) {     //判断公司列表是否结束
+                console.log( index + " " + cList[index] + " finished......" );
                 index++
-                page = 1;
-                url = utils.format(config.url.job_url, encodeURI(cList[index]), page);
-                // utils.sleep(1)
+                page = 1
+                url = utils.format(config.url.job_url, encodeURI(cList[index]), page)
+                utils.sleep(1)
                 getJob()
-            } else {
+            } else {     //抓取完毕
                 db.disconnect()
             }
 
