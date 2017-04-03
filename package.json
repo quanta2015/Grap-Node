@@ -1,0 +1,25 @@
+{
+  "name": "grapjob",
+  "version": "1.0.0",
+  "description": "- config 文件配置基本信息\r - api 包括主要函数\r - data 包括抓取公司列表，需要通过 **db.runCommand({\"distinct\": `COLLECTION` , \"key\": `FIELD` })** 命令生成",
+  "main": "app.js",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "mongodb": "^2.2.25",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quanta2015/Grap-Node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quanta2015/Grap-Node/issues"
+  },
+  "homepage": "https://github.com/quanta2015/Grap-Node#readme"
+}
