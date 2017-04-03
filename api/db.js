@@ -32,7 +32,7 @@ exports.saveJobEx = function(posname, comp, money, area, pubdate, exp, edu, desc
         upsert: true
     };
 
-    var collection = global._db.collection('jobTableProj');
+    var collection = global._db.collection('tmp');
     collection.insert(job, function(err, ret) {
         if (err) {
             console.log(err)

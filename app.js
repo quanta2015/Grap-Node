@@ -4,9 +4,6 @@ var grap = require("./api/grap")
 var cList = require("./data/company")
 var config = require("./config")
 
-var cheerio = require('cheerio');
-var superAgent = require('superagent');
-
 //全局变量初始化
 page = 1;
 index = 0;
