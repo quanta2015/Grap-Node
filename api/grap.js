@@ -1,6 +1,6 @@
 var cheerio = require('cheerio');
 var superAgent = require('superagent');
-var db = require("./db")
+var db = require("./dbAsync")
 var utils = require("./utils")
 var config = require("../config")
 var cList = require("../data/company")
@@ -70,4 +70,40 @@ function getJob() {
 
         } // end of res 
     }) // end of superagent
+}
+
+
+exports.getDetail = getDetail
+
+function getDetail() {
+
+    var url =  global.ret[index].url
+    var id = global.ret[index]._id
+    var opt = {
+        Referer: url,
+        'User-Agent': config.url.opt
+    }
+    superAgent.get(url).set(opt).end(function(err, res) {
+        if (err) {
+            console.log(err.status)
+            db.disconnect()
+            return false;
+        }
+        if (res.status === 200) {
+            var $ = cheerio.load(res.text)
+            var jobCount = $(".terminal-ul li").eq(6).text()
+            var jobType = $(".terminal-ul li").eq(7).text()
+            db.updateDetail(id, jobCount, jobType)
+
+             if (index < ret.length) {
+                index++
+                getDetail()
+                // utils.sleep(1)
+             }else{
+                db.disconnect()
+             }
+
+        } // end of res 
+    }) // end of superagent
+
 }

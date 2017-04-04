@@ -4,8 +4,10 @@
   "description": "- config 文件配置基本信息\r - api 包括主要函数\r - data 包括抓取公司列表，需要通过 **db.runCommand({\"distinct\": `COLLECTION` , \"key\": `FIELD` })** 命令生成",
   "main": "app.js",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "cheerio": "^0.22.0",
     "mongodb": "^2.2.25",
+    "mongoose": "^4.9.3",
     "superagent": "^3.5.2"
   },
   "devDependencies": {},

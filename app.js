@@ -1,4 +1,4 @@
-var db = require("./api/db")
+var db = require("./api/dbAsync")
 var utils = require("./api/utils")
 var grap = require("./api/grap")
 var cList = require("./data/company")
